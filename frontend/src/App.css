@@ -1151,3 +1151,436 @@ img {
   }
 }
 
+/* Standardised product image dimensions */
+
+.product-placeholder {
+  height: 280px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Product details image */
+.product-detail-image {
+  height: 420px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.product-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Shopping cart thumbnails */
+.cart-item-image {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cart-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Responsive image dimensions */
+@media (max-width: 768px) {
+  .product-placeholder {
+    height: 220px;
+  }
+
+  .product-detail-image {
+    height: 300px;
+  }
+
+  .cart-item-image {
+    width: 85px;
+    height: 85px;
+  }
+}
+
+/* ========================================
+   SHOPSPHERE CUSTOMER REGISTRATION
+======================================== */
+
+.auth-page {
+  max-width: 560px;
+  margin: 40px auto 64px;
+  padding: 0 16px;
+}
+
+.auth-card {
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.auth-card h1 {
+  margin: 10px 0;
+  color: var(--text);
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  letter-spacing: -0.8px;
+}
+
+.auth-description {
+  margin-bottom: 28px;
+  color: var(--muted-text);
+  line-height: 1.6;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.auth-field label {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.auth-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+}
+
+.auth-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.auth-error,
+.auth-message {
+  padding: 12px;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.auth-error {
+  color: #dc625c;
+  background: var(--surface);
+  border: 1px solid #dc625c;
+}
+
+.auth-message {
+  color: var(--text);
+  background: var(--accent-soft);
+}
+
+@media (max-width: 600px) {
+  .auth-page {
+    margin-top: 24px;
+    padding: 0;
+  }
+
+  .auth-card {
+    padding: 22px;
+    border-radius: 14px;
+  }
+}
+/* ========================================
+   SHOPSPHERE LOGIN AND ACCOUNT DISPLAY
+======================================== */
+
+.auth-page>.back-button {
+  margin-bottom: 20px;
+  padding: 9px 14px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.auth-page>.back-button:hover {
+  background: var(--accent-soft);
+}
+
+.account-greeting {
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .account-greeting {
+    font-size: 0.75rem;
+  }
+}
+/* ========================================
+   SHOPSPHERE CUSTOMER PROFILE
+======================================== */
+
+.profile-page {
+  max-width: 650px;
+  margin: 40px auto 64px;
+  padding: 0 16px;
+}
+
+.profile-card {
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.profile-card h1 {
+  color: var(--text);
+  margin: 10px 0;
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.profile-row:last-child {
+  border-bottom: none;
+}
+
+.profile-row span {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+}
+
+.profile-row strong {
+  color: var(--text);
+  font-size: 0.95rem;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    margin-top: 24px;
+    padding: 0;
+  }
+
+  .profile-card {
+    padding: 22px;
+  }
+
+  .profile-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .profile-row strong {
+    text-align: left;
+  }
+}
+/* ========================================
+   SHOPSPHERE EDITABLE CUSTOMER PROFILE
+======================================== */
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.profile-field label {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.profile-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+}
+
+.profile-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.profile-field input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.profile-field small {
+  color: var(--muted-text);
+  font-size: 0.8rem;
+}
+
+.profile-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.profile-cancel-button {
+  padding: 12px 20px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.profile-cancel-button:hover {
+  background: var(--accent-soft);
+}
+
+.profile-cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-edit-button {
+  margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+  .profile-form-actions {
+    flex-direction: column;
+  }
+
+  .profile-form-actions button {
+    width: 100%;
+  }
+}
+
+/* Profile picture upload */
+
+.profile-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 28px 0;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft);
+  border: 2px solid var(--border);
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-avatar span {
+  color: var(--accent);
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.avatar-upload-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.avatar-upload-controls label {
+  font-weight: 600;
+}
+
+.avatar-upload-controls input {
+  max-width: 100%;
+  color: var(--text);
+}
+
+.avatar-upload-controls small {
+  color: var(--muted-text);
+  font-size: 12px;
+}
+
+.avatar-upload-button {
+  margin-top: 4px;
+}
+
+.profile-section-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  margin: 24px 0;
+}
+
+@media (max-width: 480px) {
+  .profile-avatar-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .avatar-upload-controls {
+    width: 100%;
+  }
+}

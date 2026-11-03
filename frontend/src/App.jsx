@@ -1,6 +1,9 @@
-
+import { supabase } from "./config/supabase";
 import { useEffect, useState } from "react";
 import "./App.css";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
 
 const API_URL = "http://localhost:5001/api/products";
 
@@ -12,6 +15,11 @@ function formatPrice(price) {
 }
 
 function App() {
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -52,6 +60,33 @@ function App() {
     return [];
   }
 });
+// Restore and monitor the Supabase authentication session.
+useEffect(() => {
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange(
+    (event, session) => {
+      setCurrentUser(session?.user ?? null);
+    }
+  );
+
+  return () => {
+    subscription.unsubscribe();
+  };
+}, []);
+async function handleLogout() {
+  setLogoutError("");
+
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    setLogoutError(error.message);
+    return;
+  }
+
+  setCurrentUser(null);
+  returnToCatalogue();
+}
 useEffect(() => {
   try {
     localStorage.setItem(
@@ -276,6 +311,9 @@ setCartItems((currentItems) => {
   );
 
   function openProduct(productId) {
+    setShowRegister(false);
+    setShowLogin(false);
+    setShowProfile(false);
     setShowCart(false);
     setCartMessage("");
     setSelectedProductId(productId);
@@ -283,6 +321,9 @@ setCartItems((currentItems) => {
   }
 
   function returnToCatalogue() {
+    setShowRegister(false);
+    //setShowLogin(false);//added just verify MARK:VERIFY
+    setShowProfile(false);
     setShowCart(false);
     setSelectedProductId(null);
     setCartMessage("");
@@ -428,10 +469,77 @@ setCartItems((currentItems) => {
         </a>
 
         <div className="header-actions">
+          {logoutError && (
+  <p className="auth-error" role="alert">
+    {logoutError}
+  </p>
+)}
           <span className="header-label">
             Your everyday marketplace
           </span>
+{!currentUser && (
+  <button
+    type="button"
+    className="cart-header-button"
+    onClick={() => {
+      setShowProfile(false);
+      setShowRegister(true);
+      setShowLogin(false);
+      setShowCart(false);
+      setSelectedProductId(null);
+      setCartMessage("");
+    }}
+  >
+    Create Account
+  </button>
+)}
+{!currentUser && (
+  <button
+    type="button"
+    className="cart-header-button"
+    onClick={() => {
+      setShowProfile(false);
+      setShowLogin(true);
+      setShowRegister(false);
+      setShowCart(false);
+      setSelectedProductId(null);
+      setCartMessage("");
+    }}
+  >
+    Sign In
+  </button>
+)}
+{currentUser && (
+  <>
+    <span className="account-greeting">
+      Hi, {currentUser.email}
+    </span>
 
+    <button
+      type="button"
+      className="cart-header-button"
+      onClick={handleLogout}
+    >
+      Sign Out
+    </button>
+  </>
+)}
+{currentUser && (
+  <button
+    type="button"
+    className="cart-header-button"
+    onClick={() => {
+      setShowProfile(true);
+      setShowRegister(false);
+      setShowLogin(false);
+      setShowCart(false);
+      setSelectedProductId(null);
+      setCartMessage("");
+    }}
+  >
+    My Profile
+  </button>
+)}
           <button
             type="button"
             className="cart-header-button"
@@ -451,7 +559,25 @@ setCartItems((currentItems) => {
       </header>
 
       <main className="container">
-        {showCart ? (
+{showRegister ? (
+  <Register onBack={returnToCatalogue} />
+) : showLogin ? (
+  <Login
+    onBack={returnToCatalogue}
+    onLoginSuccess={(user) => {
+      setCurrentUser(user);
+      setShowLogin(false);
+      setShowRegister(false);
+      setShowCart(false);
+      setSelectedProductId(null);
+    }}
+  />
+  ) : showProfile ? (
+  <Profile
+    user={currentUser}
+    onBack={returnToCatalogue}
+  />
+) : showCart ? (
           <section className="cart-page">
             <button
               type="button"
