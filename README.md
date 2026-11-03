@@ -1,105 +1,82 @@
+
+<div align="center">
+
 # 🛍️ ShopSphere
 
 ### Discover. Shop. Enjoy.
 
-**A modern full-stack e-commerce platform built with React, Node.js, Express.js and Supabase PostgreSQL.**
+**A modern, full-stack e-commerce platform built with React, Node.js and Supabase.**
 
-Building a complete shopping experience through modern web technologies, scalable architecture and practical software engineering.
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-Frontend-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-5FA04E?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express.js-API-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Database%20%26%20Auth-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-\<p align="center">
-&#x20; \<img src="[https://img.shields.io/badge/React-2026-61DAFB?logo=react&logoColor=white](https://img.shields.io/badge/React-2026-61DAFB?logo=react\&logoColor=white)" />
-&#x20; \<img src="[https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js&logoColor=white](https://img.shields.io/badge/Node.js-Backend-339933?logo=node.js\&logoColor=white)" />
-&#x20; \<img src="[https://img.shields.io/badge/Express.js-API-000000?logo=express](https://img.shields.io/badge/Express.js-API-000000?logo=express)" />
-&#x20; \<img src="[https://img.shields.io/badge/Supabase-PostgreSQL-3FCF8E?logo=supabase&logoColor=white](https://img.shields.io/badge/Supabase-PostgreSQL-3FCF8E?logo=supabase\&logoColor=white)" />
-&#x20; \<img src="[https://img.shields.io/badge/Vite-Frontend-646CFF?logo=vite&logoColor=white](https://img.shields.io/badge/Vite-Frontend-646CFF?logo=vite\&logoColor=white)" />
-&#x20; \<img src="[https://img.shields.io/badge/Status-Active%20Development-8A2BE2](https://img.shields.io/badge/Status-Active%20Development-8A2BE2)" />
-\</p>
+**🚧 Active Development**
+
+</div>
 
 ---
 
 ## ✨ About ShopSphere
 
-ShopSphere is a full-stack e-commerce application designed to deliver a smooth and responsive online shopping experience.
+ShopSphere is a full-stack e-commerce application designed to provide a modern online shopping experience.
 
-The project combines a modern React frontend with a Node.js and Express backend, supported by a Supabase PostgreSQL database.
+The project focuses on building a complete e-commerce system while applying practical software development concepts, including REST API development, database management, authentication, cloud storage, application security and deployment.
 
-From product discovery and shopping cart management to secure checkout, cloud deployment and AI-powered shopping assistance, ShopSphere is being developed as a practical exploration of modern full-stack engineering.
+The application is being developed incrementally, with an emphasis on clean architecture, reusable components and real-world development practices.
 
-## 🛒 Product Showcase
+## 🚀 Key Features
 
-A look at the products currently available in the ShopSphere catalogue.
+| Feature | Description |
+|---|---|
+| 🛍️ Product Catalogue | Browse products with detailed product information. |
+| 🔎 Product Discovery | Search, filter and sort products. |
+| 🛒 Shopping Cart | Add, remove and manage shopping cart items. |
+| 💾 Cart Persistence | Preserve cart data using browser storage. |
+| 🔄 Multi-Tab Sync | Synchronise cart changes across browser tabs. |
+| 📦 Stock Validation | Validate product availability before adding items. |
+| 🔐 Customer Authentication | Register, verify email, sign in and sign out. |
+| 👤 Customer Profiles | Retrieve and update customer profile information. |
+| 🖼️ Profile Pictures | Upload and manage customer profile pictures using Supabase Storage. |
+| ☁️ Cloud Image Storage | Store product images in Supabase Storage. |
+| 🌗 Responsive Interface | Responsive layouts with automatic light and dark themes. |
 
-| Product                | Category    |  Price |
-| ---------------------- | ----------- | -----: |
-| 🎧 Wireless Headphones | Electronics | ₹2,499 |
-| ⌨️ Mechanical Keyboard | Electronics | ₹3,999 |
-| 🎒 Travel Backpack     | Accessories | ₹1,499 |
-
-*Product information is retrieved dynamically from Supabase PostgreSQL.*
-
-## 🚀 Features
-
-| Feature             | Description                              | Status |
-| ------------------- | ---------------------------------------- | ------ |
-| Product Catalogue   | Display products from the database       | ✅      |
-| Product Search      | Search by name and description           | ✅      |
-| Category Filtering  | Browse products by category              | ✅      |
-| Product Sorting     | Sort by price, name and newest           | ✅      |
-| Product Details     | Dedicated product information view       | ✅      |
-| Shopping Cart       | Add, remove and update quantities        | ✅      |
-| Cart Persistence    | Save cart using localStorage             | ✅      |
-| Multi-tab Sync      | Synchronise cart between browser tabs    | ✅      |
-| Stock Validation    | Verify availability through backend APIs | ✅      |
-| Responsive UI       | Adapt to different screen sizes          | ✅      |
-| Light/Dark Theme    | System-based theme support               | ✅      |
-| Authentication      | Customer, seller and admin accounts      | 🔜     |
-| Checkout & Payments | Secure order and payment processing      | 🔜     |
-
-## 🧠 Technology Stack
-
-**Frontend**
-
-- React.js
-- Vite
-- JavaScript
-- CSS
-
-**Backend**
-
-- Node.js
-- Express.js
-- RESTful APIs
-
-**Database**
-
-- Supabase
-- PostgreSQL
-
-**Cloud & DevOps — Planned**
-
-- Docker
-- AWS EC2
-- Amazon S3
-- GitHub Actions
-- Vercel
-- Render
-
-**Payments & AI — Planned**
-
-- Dodo Payments
-- Gemini Vision
-
-## 🏗️ Application Architecture
+## 🏗️ Project Architecture
 
 ```mermaid
 flowchart TD
-    A[Customer] --> B[React + Vite Frontend]
-    B -->|REST API Requests| C[Node.js + Express Backend]
-    C -->|SQL Queries| D[(Supabase PostgreSQL)]
-    C -.-> E[Amazon S3 - Planned]
-    C -.-> F[Dodo Payments - Planned]
-    C -.-> G[Gemini AI - Planned]
+    A[Customers] --> B[React + Vite Frontend]
+    B --> C[Express.js REST API]
+    B --> D[Supabase Authentication]
+    B --> E[Supabase PostgreSQL]
+    C --> E
+    B --> F[Supabase Storage]
+    C --> F
 ```
+
+### Architecture Overview
+
+- **Frontend:** React handles the user interface, product browsing, cart and customer account experience.
+- **Backend:** Express.js provides REST APIs for product operations and image uploads.
+- **Database:** Supabase PostgreSQL stores product and customer profile information.
+- **Authentication:** Supabase Auth manages customer registration, email verification and login sessions.
+- **Storage:** Supabase Storage manages product images and customer profile pictures.
+
+## 🧰 Technology Stack
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React.js, Vite, JavaScript, CSS |
+| Backend | Node.js, Express.js |
+| Database | Supabase PostgreSQL |
+| Authentication | Supabase Auth |
+| Image Storage | Supabase Storage |
+| API Communication | REST APIs, Fetch API |
+| Version Control | Git, GitHub |
+| Development Tools | VS Code, npm, Postman |
 
 ## 📂 Project Structure
 
@@ -109,36 +86,59 @@ ecommerce-platform/
 ├── backend/
 │   ├── src/
 │   │   ├── config/
+│   │   │   ├── db.js
+│   │   │   ├── supabase.js
+│   │   │   └── testDb.js
+│   │   │
 │   │   ├── controllers/
-│   │   └── routes/
+│   │   │   ├── imageController.js
+│   │   │   └── productController.js
+│   │   │
+│   │   ├── routes/
+│   │   │   ├── imageRoutes.js
+│   │   │   └── productRoutes.js
+│   │   │
+│   │   └── app.js
+│   │
 │   ├── server.js
 │   └── package.json
 │
 ├── frontend/
 │   ├── src/
+│   │   ├── components/
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   │   └── Profile.jsx
+│   │   │
+│   │   ├── config/
+│   │   │   └── supabase.js
+│   │   │
 │   │   ├── App.jsx
 │   │   ├── App.css
 │   │   └── main.jsx
-│   ├── public/
+│   │
+│   ├── .env
 │   └── package.json
+│
+├── screenshots/
 │
 ├── .gitignore
 └── README.md
 ```
 
-## ⚙️ Getting Started
+## ⚙️ Local Setup
 
 ### Prerequisites
 
-- Node.js (LTS recommended)
-- npm
+- Node.js and npm
 - Git
 - Supabase account
+- Code editor such as VS Code
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+git clone <your-github-repository-url>
 cd ecommerce-platform
 ```
 
@@ -149,115 +149,135 @@ cd backend
 npm install
 ```
 
-Create a `.env` file inside `backend/`:
+Create a `.env` file inside the backend directory:
 
 ```env
 PORT=5001
-DATABASE_URL=your_supabase_connection_string
+DATABASE_URL=your_supabase_postgresql_connection_string
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SECRET_KEY=your_supabase_secret_key
 ```
 
-### 3. Configure the database
-
-Create a Supabase project and execute the product table SQL in the Supabase SQL Editor.
-
-```sql
-CREATE TABLE products (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    description TEXT NOT NULL,
-    price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),
-    category VARCHAR(100) NOT NULL,
-    stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
-    image_url TEXT,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
-ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
-```
-
-Add sample products and configure the backend connection.
-
-### 4. Run the backend
+Start the backend:
 
 ```bash
-npm run dev
+node server.js
 ```
 
-Backend: `http://localhost:5001`
+Backend runs at:
 
-### 5. Run the frontend
+`http://localhost:5001`
+
+Health check:
+
+`http://localhost:5001/api/health`
+
+### 3. Configure the frontend
 
 Open another terminal:
 
 ```bash
 cd frontend
 npm install
+```
+
+Create a `.env` file inside the frontend directory:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-Frontend: `http://localhost:5173`
+Frontend runs at:
 
-## 🔌 API Endpoints
+`http://localhost:5173`
 
-| Method | Endpoint            | Purpose                  |
-| ------ | ------------------- | ------------------------ |
-| GET    | `/api/health`       | Backend health check     |
-| GET    | `/api/products`     | Retrieve all products    |
-| GET    | `/api/products/:id` | Retrieve a product by ID |
+**Important:** Never commit `.env` files or expose backend Supabase secret keys in frontend code or GitHub.
+
+## 🔒 Security Implementation
+
+ShopSphere incorporates security measures as features are developed:
+
+- Supabase Authentication for customer identity management.
+- PostgreSQL Row Level Security (RLS) for customer profile access.
+- Storage policies restricting customers to their own profile picture folders.
+- Backend environment variables for sensitive credentials.
+- Image upload restrictions for file size and permitted image formats.
+- Database constraints for product prices and stock quantities.
+
+Additional production security controls will be implemented before deployment.
 
 ## 🗺️ Development Roadmap
 
-### Phase 1 — Core Commerce
+### Phase 1 — Core E-Commerce
 
-- [x] Frontend and backend setup
-- [x] Supabase PostgreSQL integration
-- [x] Product catalogue and APIs
-- [x] Search, filtering and sorting
+- [x] Project setup and architecture
+- [x] Product catalogue
 - [x] Product details
+- [x] Search, filter and sort
 - [x] Shopping cart
-- [x] Cart persistence and synchronisation
-- [x] Preliminary stock validation
-- [ ] Authentication and role management
-- [ ] Checkout and order management
+- [x] Cart persistence
+- [x] Multi-tab cart synchronisation
+- [x] Stock validation
+- [x] Responsive design and light/dark themes
+- [x] Customer registration and email verification
+- [x] Customer login and logout
+- [x] Session persistence
+- [x] Customer profile management
+- [x] Profile picture uploads
+- [ ] Customer delivery address management
+- [ ] Checkout workflow
 - [ ] Payment integration
-- [ ] Seller and admin dashboards
+- [ ] Order management
 
-### Phase 2 — Cloud & DevOps
+### Phase 2 — Scale & Deployment
 
-- [ ] Docker multi-stage builds
-- [ ] Render backend deployment
-- [ ] Vercel frontend deployment
-- [ ] Amazon S3 image storage
-- [ ] AWS EC2 deployment
+- [ ] Docker containerisation
+- [ ] Backend deployment on Render
+- [ ] Frontend deployment on Vercel
+- [ ] AWS infrastructure and EC2 deployment
 - [ ] GitHub Actions CI/CD
-- [ ] Monitoring and application reliability
+- [ ] Application monitoring and logging
+- [ ] Performance and security improvements
 
-### Phase 3 — AI-Powered Commerce
+### Phase 3 — AI-Powered Shopping
 
-- [ ] Gemini Vision product information extraction
 - [ ] AI-powered product recommendations
 - [ ] Intelligent shopping assistant
+- [ ] Gemini Vision product information extraction
+- [ ] Personalised shopping experience
 
-## 🔐 Engineering & Security Goals
+## 🎯 Project Objectives
 
-- Server-side validation of product prices and stock.
-- Secure authentication and role-based access.
-- Database transactions for order creation.
-- Inventory concurrency protection using `SELECT ... FOR UPDATE`.
-- Idempotent order and payment operations.
-- Payment webhook signature verification.
-- Environment variable and secret protection.
-- API validation, rate limiting and CORS configuration.
+ShopSphere is also a practical learning project focused on:
 
-## 💡 Project Vision
+- Full-stack application development.
+- REST API design and integration.
+- Relational database design and SQL.
+- Authentication and authorisation.
+- Cloud storage integration.
+- Git and GitHub workflows.
+- Application deployment and CI/CD.
+- Scalable and maintainable software architecture.
 
-ShopSphere is more than a basic shopping application. It is an evolving full-stack engineering project exploring the complete software development lifecycle — from frontend development and database integration to cloud infrastructure, DevOps automation and AI-powered features.
+## 📌 Current Development Status
 
-**Built with curiosity. Engineered for scale. Designed for what's next.**
+ShopSphere is actively being developed. The product catalogue, shopping cart, customer authentication, profile management and image storage capabilities have been implemented and tested locally.
+
+Checkout, payments, deployment and AI-powered capabilities remain part of the development roadmap.
 
 ---
 
-\<p align="center">
-&#x20; \<b>ShopSphere\</b>\<br/>
-&#x20; Full-Stack Development • Cloud Engineering • AI Innovation
-\</p>
+<div align="center">
+
+### Built with ❤️ using modern web technologies
+
+**ShopSphere — Discover. Shop. Enjoy.**
+
+</div>
