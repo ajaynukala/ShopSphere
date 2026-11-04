@@ -1,5 +1,5 @@
 import { supabase } from "./config/supabase";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
@@ -16,6 +16,9 @@ function formatPrice(price) {
 }
 
 function App() {
+  const [showAccountMenu, setShowAccountMenu] = useState(false);
+  const [profileSummary, setProfileSummary] = useState(null);
+  const accountMenuRef = useRef(null);
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -62,6 +65,65 @@ function App() {
     return [];
   }
 });
+//For Menu
+useEffect(() => {
+  let isMounted = true;
+
+  async function loadProfileSummary() {
+    if (!currentUser?.id) {
+      setProfileSummary(null);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("full_name, avatar_url")
+      .eq("id", currentUser.id)
+      .maybeSingle();
+
+    if (!isMounted) return;
+
+    if (error) {
+      console.error("Unable to load account profile:", error.message);
+      setProfileSummary(null);
+      return;
+    }
+
+    setProfileSummary(data);
+  }
+
+  loadProfileSummary();
+
+  return () => {
+    isMounted = false;
+  };
+}, [currentUser?.id]);
+useEffect(() => {
+  if (!showAccountMenu) return;
+
+  function handleOutsideClick(event) {
+    if (
+      accountMenuRef.current &&
+      !accountMenuRef.current.contains(event.target)
+    ) {
+      setShowAccountMenu(false);
+    }
+  }
+
+  function handleEscapeKey(event) {
+    if (event.key === "Escape") {
+      setShowAccountMenu(false);
+    }
+  }
+
+  document.addEventListener("mousedown", handleOutsideClick);
+  document.addEventListener("keydown", handleEscapeKey);
+
+  return () => {
+    document.removeEventListener("mousedown", handleOutsideClick);
+    document.removeEventListener("keydown", handleEscapeKey);
+  };
+}, [showAccountMenu]);
 // Restore and monitor the Supabase authentication session.
 useEffect(() => {
   const {
@@ -457,132 +519,235 @@ setCartItems((currentItems) => {
       openProduct(productId);
     }
   }
+const accountName =
+  profileSummary?.full_name ||
+  currentUser?.user_metadata?.full_name ||
+  currentUser?.email?.split("@")[0] ||
+  "My Account";
 
+const accountEmail = currentUser?.email || "";
+
+const accountAvatar =
+  profileSummary?.avatar_url ||
+  currentUser?.user_metadata?.avatar_url ||
+  "";
+
+const accountInitial = accountName.charAt(0).toUpperCase();
   return (
     <div className="app">
-      <header className="site-header">
-        <a
-          className="brand"
-          href="/"
-          onClick={(event) => {
-            event.preventDefault();
-            returnToCatalogue();
-          }}
-        >
-          ShopSphere
-        </a>
+      
+<header className="site-header">
+  <a
+    className="brand"
+    href="/"
+    onClick={(event) => {
+      event.preventDefault();
+      returnToCatalogue();
+    }}
+  >
+    ShopSphere
+  </a>
 
-        <div className="header-actions">
-          {logoutError && (
-  <p className="auth-error" role="alert">
-    {logoutError}
-  </p>
-)}
-          <span className="header-label">
-            Your everyday marketplace
-          </span>
-{!currentUser && (
-  <button
-    type="button"
-    className="cart-header-button"
-    onClick={() => {
-      setShowProfile(false);
-      setShowRegister(true);
-      setShowLogin(false);
-      setShowAddresses(false);
-      setShowCart(false);
-      setSelectedProductId(null);
-      setCartMessage("");
-    }}
-  >
-    Create Account
-  </button>
-)}
-{!currentUser && (
-  <button
-    type="button"
-    className="cart-header-button"
-    onClick={() => {
-      setShowProfile(false);
-      setShowLogin(true);
-      setShowRegister(false);
-      setShowAddresses(false);
-      setShowCart(false);
-      setSelectedProductId(null);
-      setCartMessage("");
-    }}
-  >
-    Sign In
-  </button>
-)}
-{currentUser && (
-  <>
-    <span className="account-greeting">
-      Hi, {currentUser.email}
+  <div className="header-actions">
+    {logoutError && (
+      <p className="auth-error" role="alert">
+        {logoutError}
+      </p>
+    )}
+
+    <span className="header-label">
+      Your everyday marketplace
     </span>
+
+    <div className="account-menu-wrapper" ref={accountMenuRef}>
+      <button
+        type="button"
+        className="account-menu-trigger"
+        onClick={() => setShowAccountMenu((previous) => !previous)}
+        aria-expanded={showAccountMenu}
+        aria-haspopup="true"
+        aria-label="Open account menu"
+      >
+        {currentUser && accountAvatar ? (
+          <img
+            className="account-menu-avatar"
+            src={accountAvatar}
+            alt=""
+          />
+        ) : (
+          <span className="account-menu-avatar account-menu-avatar-fallback">
+            {currentUser ? accountInitial : "👤"}
+          </span>
+        )}
+
+        <span className="account-menu-trigger-label">
+          {currentUser ? accountName : "Account"}
+        </span>
+
+        <span className="account-menu-chevron" aria-hidden="true">
+          {showAccountMenu ? "▲" : "▼"}
+        </span>
+      </button>
+
+      {showAccountMenu && (
+        <div className="account-dropdown" role="menu">
+          {currentUser ? (
+            <>
+              <div className="account-dropdown-header">
+                <div className="account-dropdown-identity">
+                  {accountAvatar ? (
+                    <img
+                      className="account-dropdown-avatar"
+                      src={accountAvatar}
+                      alt=""
+                    />
+                  ) : (
+                    <span className="account-dropdown-avatar account-dropdown-avatar-fallback">
+                      {accountInitial}
+                    </span>
+                  )}
+
+                  <div className="account-dropdown-user-details">
+                    <strong>{accountName}</strong>
+                    <span>{accountEmail}</span>
+                  </div>
+                </div>
+
+                <span className="account-dropdown-status">
+                  Customer account
+                </span>
+              </div>
+
+              <div className="account-dropdown-divider" />
+
+              <button
+                type="button"
+                className="account-dropdown-item"
+                role="menuitem"
+                onClick={() => {
+                  setShowAccountMenu(false);
+                  setShowRegister(false);
+                  setShowLogin(false);
+                  setShowProfile(true);
+                  setShowAddresses(false);
+                  setShowCart(false);
+                  setSelectedProductId(null);
+                  setCartMessage("");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                <span aria-hidden="true">👤</span>
+                <span>My Profile</span>
+              </button>
+
+              <button
+                type="button"
+                className="account-dropdown-item"
+                role="menuitem"
+                onClick={() => {
+                  setShowAccountMenu(false);
+                  setShowRegister(false);
+                  setShowLogin(false);
+                  setShowProfile(false);
+                  setShowAddresses(true);
+                  setShowCart(false);
+                  setSelectedProductId(null);
+                  setCartMessage("");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                <span aria-hidden="true">📍</span>
+                <span>My Addresses</span>
+              </button>
+
+              <div className="account-dropdown-divider" />
+
+              <button
+                type="button"
+                className="account-dropdown-item account-dropdown-logout"
+                role="menuitem"
+                onClick={() => {
+                  setShowAccountMenu(false);
+                  handleLogout();
+                }}
+              >
+                <span aria-hidden="true">↪</span>
+                <span>Sign Out</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="account-dropdown-header">
+                <strong>Welcome to ShopSphere</strong>
+                <span>Sign in to manage your account.</span>
+              </div>
+
+              <div className="account-dropdown-divider" />
+
+              <button
+                type="button"
+                className="account-dropdown-item"
+                role="menuitem"
+                onClick={() => {
+                  setShowAccountMenu(false);
+                  setShowRegister(true);
+                  setShowLogin(false);
+                  setShowProfile(false);
+                  setShowAddresses(false);
+                  setShowCart(false);
+                  setSelectedProductId(null);
+                }}
+              >
+                <span aria-hidden="true">✦</span>
+                <span>Create Account</span>
+              </button>
+
+              <button
+                type="button"
+                className="account-dropdown-item"
+                role="menuitem"
+                onClick={() => {
+                  setShowAccountMenu(false);
+                  setShowLogin(true);
+                  setShowRegister(false);
+                  setShowProfile(false);
+                  setShowAddresses(false);
+                  setShowCart(false);
+                  setSelectedProductId(null);
+                }}
+              >
+                <span aria-hidden="true">→</span>
+                <span>Sign In</span>
+              </button>
+            </>
+          )}
+        </div>
+      )}
+    </div>
 
     <button
       type="button"
       className="cart-header-button"
-      onClick={handleLogout}
+      onClick={() => {
+        setShowCart(true);
+        setShowAddresses(false);
+        setShowProfile(false);
+        setShowRegister(false);
+        setShowLogin(false);
+        setShowAccountMenu(false);
+        setSelectedProductId(null);
+        setCartMessage("");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+      aria-label={`Open cart, ${cartCount} items`}
     >
-      Sign Out
+      <span aria-hidden="true">🛒</span>
+      Cart
+      <span className="cart-count">{cartCount}</span>
     </button>
-  </>
-)}
-{currentUser && (
-  <button
-    type="button"
-    className="cart-header-button"
-    onClick={() => {
-      setShowProfile(true);
-      setShowRegister(false);
-      setShowLogin(false);
-      setShowAddresses(false);
-      setShowCart(false);
-      setSelectedProductId(null);
-      setCartMessage("");
-    }}
-  >
-    My Profile
-  </button>
-)}
-{currentUser && (
-  <button
-    type="button"
-    className="cart-header-button"
-    onClick={() => {
-      setShowAddresses(true);
-      setShowProfile(false);
-      setShowRegister(false);
-      setShowLogin(false);
-      setShowCart(false);
-      setSelectedProductId(null);
-      setCartMessage("");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }}
-  >
-    My Addresses
-  </button>
-)}
-          <button
-            type="button"
-            className="cart-header-button"
-            onClick={() => {
-              setShowCart(true);
-              setShowAddresses(false);
-              setSelectedProductId(null);
-              setCartMessage("");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            aria-label={`Open cart, ${cartCount} items`}
-          >
-            <span aria-hidden="true">🛒</span>
-            Cart
-            <span className="cart-count">{cartCount}</span>
-          </button>
-        </div>
-      </header>
+  </div>
+</header>
+
 
       <main className="container">
 {showRegister ? (
