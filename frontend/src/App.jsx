@@ -4,6 +4,7 @@ import "./App.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
+import AddressBook from "./components/AddressBook";
 
 const API_URL = "http://localhost:5001/api/products";
 
@@ -18,6 +19,7 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showAddresses, setShowAddresses] = useState(false);
   const [logoutError, setLogoutError] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const [products, setProducts] = useState([]);
@@ -314,6 +316,7 @@ setCartItems((currentItems) => {
     setShowRegister(false);
     setShowLogin(false);
     setShowProfile(false);
+    setShowAddresses(false);
     setShowCart(false);
     setCartMessage("");
     setSelectedProductId(productId);
@@ -322,8 +325,9 @@ setCartItems((currentItems) => {
 
   function returnToCatalogue() {
     setShowRegister(false);
-    //setShowLogin(false);//added just verify MARK:VERIFY
+    setShowLogin(false);
     setShowProfile(false);
+    setShowAddresses(false);
     setShowCart(false);
     setSelectedProductId(null);
     setCartMessage("");
@@ -485,6 +489,7 @@ setCartItems((currentItems) => {
       setShowProfile(false);
       setShowRegister(true);
       setShowLogin(false);
+      setShowAddresses(false);
       setShowCart(false);
       setSelectedProductId(null);
       setCartMessage("");
@@ -501,6 +506,7 @@ setCartItems((currentItems) => {
       setShowProfile(false);
       setShowLogin(true);
       setShowRegister(false);
+      setShowAddresses(false);
       setShowCart(false);
       setSelectedProductId(null);
       setCartMessage("");
@@ -532,6 +538,7 @@ setCartItems((currentItems) => {
       setShowProfile(true);
       setShowRegister(false);
       setShowLogin(false);
+      setShowAddresses(false);
       setShowCart(false);
       setSelectedProductId(null);
       setCartMessage("");
@@ -540,11 +547,30 @@ setCartItems((currentItems) => {
     My Profile
   </button>
 )}
+{currentUser && (
+  <button
+    type="button"
+    className="cart-header-button"
+    onClick={() => {
+      setShowAddresses(true);
+      setShowProfile(false);
+      setShowRegister(false);
+      setShowLogin(false);
+      setShowCart(false);
+      setSelectedProductId(null);
+      setCartMessage("");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }}
+  >
+    My Addresses
+  </button>
+)}
           <button
             type="button"
             className="cart-header-button"
             onClick={() => {
               setShowCart(true);
+              setShowAddresses(false);
               setSelectedProductId(null);
               setCartMessage("");
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -572,8 +598,13 @@ setCartItems((currentItems) => {
       setSelectedProductId(null);
     }}
   />
-  ) : showProfile ? (
+) : showProfile ? (
   <Profile
+    user={currentUser}
+    onBack={returnToCatalogue}
+  />
+) : showAddresses ? (
+  <AddressBook
     user={currentUser}
     onBack={returnToCatalogue}
   />
