@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const productRoutes = require("./routes/productRoutes");
 const imageRoutes = require("./routes/imageRoutes");
-
+const orderRoutes = require("./routes/orderRoutes");
 const app = express();
 
 // CORS configuration
@@ -30,6 +30,7 @@ app.get("/api/health", (req, res) => {
 // API routes
 app.use("/api/products", productRoutes);
 app.use("/api/images", imageRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Global error handler
 app.use((error, req, res, next) => {
